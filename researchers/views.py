@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# coding: utf-8
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.conf import settings
@@ -67,9 +66,7 @@ def __to_keywords(string):
 
 def search(request, code):
     profile = check_profile(code)
-    invitation = check_invitation(code)
-    # TODO sprawdzic to !
-    if not profile and not invitation:
+    if not profile:
         messages.error(request, 'Your personal URL is incorrect, please reset your account or provide proper url')
         return redirect('index') 
 
@@ -100,7 +97,6 @@ def search(request, code):
 
 def test_search(request, code):
     invitation = check_invitation(code)
-    # TODO sprawdzic to !
     if not invitation:
         messages.error(request, 'Your personal URL is incorrect, please reset your account or provide proper url')
         return redirect('index') 
@@ -133,7 +129,6 @@ def test_search(request, code):
 
 
 def invite(request, code):
-    # TODO sprawdzic invitation i profile, jedno wystarczy
     profile = check_profile(code)
     if not profile:
         messages.error(request, 'Your personal URL is incorrect, please reset your account or provide proper url')
@@ -164,12 +159,12 @@ def invite(request, code):
     return render_to_response('researchers/invite.html', {'profile':profile, 'form':form, 'key':code}, context_instance=RequestContext(request))
 
 def join(request, code):
-    """ Ktos jak dostanie link to moze na niego zarejestrowac pelno kont, moze jeszcze z emialem powiazac
-        ewentualnie mozna zaznaczac, ze zaproszenie jest jednorazowe (jedno wejscie albo jeden user nowy)
+    """ 
+        TODO: After registring a user invitation should be disable.
     """
     if not check_invitation(code):
         messages.error(request, 'Your personal URL is incorrect, please ask for new invitation or provide proper url')
-        return redirect('index')# TODO, m='Your join URL is incorrect.')
+        return redirect('index')
 
     from forms import JoinForm
     if request.method == 'POST':
@@ -187,8 +182,8 @@ def join(request, code):
                 profile.keywords.add(k)
             profile.save()
 
-            return redirect('homepage', code=profile.key # na hompage juz profile key potrzebny jest
-                            )#, m='Thanks for joining, bookmark your dashboard!') 
+            return redirect('homepage', code=profile.key 
+                            )
     else:
         form = JoinForm(initial={'key':code}) 
     

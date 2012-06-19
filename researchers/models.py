@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-# coding: utf-8
 from django.db import models
 
-# Create your models here.
 KEY_LENGTH=50
 
 class Keyword(models.Model):
