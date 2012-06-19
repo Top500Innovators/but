@@ -1,0 +1,131 @@
+{% load static from staticfiles %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>but-em</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="author" content="Top500 Innovators" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+		<link rel="stylesheet" title="Normal" type="text/css" media="screen" href="/static/styles/screen.css" />
+
+            {% block head %} {% endblock %}
+        
+        
+        <SCRIPT LANGUAGE="JavaScript">
+            <!-- Dynamic Version by: Nannette Thacker -->
+            <!-- http://www.shiningstar.net -->
+            <!-- Original by :  Ronnie T. Moore -->
+            <!-- Web Site:  The JavaScript Source -->
+            <!-- Use one function for multiple text areas on a page -->
+            <!-- Limit the number of characters per textarea -->
+            <!-- Begin
+            function textCounter(field,cntfield,maxlimit) {
+                if (field.value.length > maxlimit) // if too long...trim it!
+                field.value = field.value.substring(0, maxlimit);
+                // otherwise, update 'characters left' counter
+                else
+                cntfield.value = maxlimit - field.value.length;
+            }
+            //  End -->
+        </script>
+        
+    </head>
+    
+    <body>
+        <div id="main">
+            <div id="header">
+                <h1>But-em</h1>
+			</div>
+            
+            <div id="menu">
+				<ul>
+                    {% block menu %}
+					<li class="selected"><a href="./index.html">Home</a></li>
+                    {% endblock %}
+				</ul>
+			</div>
+            
+            {% if messages %}
+            <div style="color:red">
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            {% endif %}
+            
+            <div id="content">
+                <div class="article">
+                    {% block content %} {% endblock %}
+                </div>
+            </div>
+            <br/><br/>
+            
+            <div id="panel">
+                {% block panel %}
+				<div class="left">
+					<h3>Help us!</h3>
+					<ul>
+						<li>Tell us about your problem with team building</li>
+						<li>Send us your opinion about this site</li>
+						<li>Propose new features or improvements</li>
+					</ul>
+					<h4>Top 500 Innovators</h4>
+					<p>
+                    This project started at Stanford during our intership. We are Top 500 Innovators. We try to start new science community. .....
+                    ....
+                    ....
+					</p>
+					<p>
+                    .....
+					</p>
+					<p>
+                    ... 
+					</p>
+				</div>
+				<div class="right">
+					<h3>Feedback</h3>
+					<p>
+                    Tell us what do you think, like, dislike, any ideas?
+					</p>
+					<form action="{% url comment key %}" method="post">{% csrf_token %}
+						<h4><label for="item_a">Your name (optional):</label></h4>
+						<p class="input">
+                        <input id='id_name' name="name" size="39" />
+						</p>
+						<h4><label for="item_b">Email (optional):</label></h4>
+						<p class="input">
+                        <input name="email" id="id_email" size="39" />
+						</p>
+						<h4><label for="item_c">Feedback:</label></h4>
+						<p class="text">
+                        <textarea name="comment" id="id_comment" rows="10" cols="33"></textarea>
+						</p>
+                        <input type="hidden" name="key" value="{{key}}">
+                        <input type="hidden" name="path" value="{{request.path}}">
+						<p class="button">
+                        <button name="submit" type="submit">Send</button>
+						</p>
+					</form>
+				</div>
+                {% endblock %}
+            </div>
+            
+            <div id="footer">
+                {% block footer %}
+                <p style="align:center">
+                <a href="#1">Terms</a>  |  <a href="#2">About</a>  |  <a href="#3">Unsubscribe</a>
+                </p>
+                {% endblock %}
+				
+                <p>
+                Designed by <a href="http://www.pixelcarnage.com/">PixelCarnage</a>
+                </p>
+			</div>
+
+		</div>
+    </body>
+</html>

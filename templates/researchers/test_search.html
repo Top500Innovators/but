@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<li class="selected"><a href="{% url test key %}">Search</a></li>
+<li><a href="{% url join key %}">Join</a></li>
+{% endblock %}
+
+{% block content %}
+<p>
+<h3>Search</h3>
+<p>Use keywords and ',' as separator, e.g.: mathematician, programmer</p>
+
+<form name="form"
+    method="POST" 
+    action="{% url test key %}">{% csrf_token %}
+    
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    
+    {% for field in form.visible_fields %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field }} <input type="submit" value="Search" /><br/>
+        <input id="id_counter" value="{{ form.counter }}" size="2"/> characters left 
+    </div>
+    {% endfor %}
+    
+    <script>
+        textCounter(document.form.id_search,document.form.id_counter,50);
+        </script>
+    
+</form>
+</p>
+<hr/>
+<p>
+<ul>
+    {% for x in sorted %}
+    <li>{{x.0.first_name}} {{x.0.last_name}} (score: {{x.1}})<br/>
+        unit: {{x.0.unit}}<br/>
+        keywords: {{x.0.summary}}<br/>
+        email: {{x.0.email}}</li>
+    {% endfor %}
+</ul>
+</p>
+<br/>
+{% endblock %}

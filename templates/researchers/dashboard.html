@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<li class="selected"><a href="{% url homepage profile.key %}">Home</a></li>
+<li><a href="{% url search profile.key %}">Search</a></li>
+<li><a href="{% url update profile.key %}">Update profile</a></li>
+<li><a href="{% url invite profile.key %}">Invite others</a></li>
+{% endblock %}
+
+{% block content %}
+<h3>Hello {{ profile.name }}</h3>
+<p>
+But-em is an online tool to "build-ur-team easily". We facilitate construction of multi-specialized teams meeting requirements of modern scientific research projects. We are developing extremely user-friendly, simple and flexible web site . Thanks to but-em everyone can meet new project partners beyond the circle of their friends. 
+</p>
+{% endblock %}

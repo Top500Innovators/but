@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<li><a href="{% url homepage profile.key %}">Home</a></li>
+<li><a href="{% url search profile.key %}">Search</a></li>
+<li><a href="{% url update profile.key %}">Update profile</a></li>
+<li class="selected"><a href="{% url invite profile.key %}">Invite others</a></li>
+{% endblock %}
+
+{% block content %}
+<p>
+    <h3>Invite your friends</h3>
+    <br/>
+
+    <form name="form" method="POST" action="{% url invite key %}">{% csrf_token %}        
+        {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+        {% endfor %}
+        
+        {% for field in form.visible_fields %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }}:<br/> {{ field }}
+        </div>
+        {% endfor %}
+        <div class="fieldWrapper">
+            <input id="id_counter" size="2"/> characters left
+        </div>
+        <script>
+            textCounter(document.form.id_emails,document.form.id_counter,255);
+            </script>
+        
+
+        <input type="submit" value="Invite friends" />
+    </form>
+</p>
+{% endblock %}

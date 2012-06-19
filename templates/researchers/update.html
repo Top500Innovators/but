@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<li><a href="{% url homepage profile.key %}">Home</a></li>
+<li><a href="{% url search profile.key %}">Search</a></li>
+<li class="selected"><a href="{% url update profile.key %}">Update profile</a></li>
+<li><a href="{% url invite profile.key %}">Invite others</a></li>
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <h3>Update profile</h3></br>
+    Update your profile information
+    <br/>   
+    <form name="form" 
+          method="post" 
+          action="{% url update key %}">{% csrf_token %}
+        
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        
+        {% for field in form.visible_fields %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }}:<br/> {{ field }}
+        </div>
+        {% endfor %}
+        <div class="fieldWrapper">
+        <input id="id_counter" value="{{ form.counter }}" size="2"/> character left
+        </div>
+        <script>
+            textCounter(document.form.id_keywords,document.form.id_counter,255);
+        </script>
+        
+        <input type="submit" value="Update"/></p>
+    </form>
+
+</p>
+{% endblock %}

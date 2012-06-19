@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>build-ur-team easily</h3>
+    <p>
+    But-em is an online tool to "build-ur-team easily". We facilitate construction of multi-specialized teams meeting requirements of modern scientific research projects. We are developing extremely user-friendly, simple and flexible web site . Thanks to but-em everyone can meet new project partners beyond the circle of their friends.
+    </p>
+    
+    <p>
+    <h3>You need an invitation to use this page!</h3>
+    Have one but don't remember the link?
+    <form method="POST" action="{% url index %}">{% csrf_token %}
+    {{ form.as_p }}
+        <input type="submit" value="Send me the link" />
+    </form>
+    <p>
+{% endblock %}

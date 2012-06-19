@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<li><a href="{% url test key %}">Search</a></li>
+<li class="selected"><a href="{% url join key %}">Join</a></li>
+{% endblock %}
+
+
+{% block content %}
+<p>
+    <h3>Join But and find your awsome team!</h3>
+    <br />
+    <form name="form" 
+          method="POST" 
+          action="{% url join key %}">{% csrf_token %}
+        
+        {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+        {% endfor %}
+        
+        {% for field in form.visible_fields %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }}:<br/> {{ field }}
+        </div>
+        {% endfor %}
+        <div class="fieldWrapper">
+            <input id="id_counter" size="2"/> character left
+        </div>
+        <script>
+            textCounter(document.form.id_keywords,document.form.id_counter,255);
+            </script>
+
+        <input type="submit" value="Join" />
+    </form>
+</p>
+{% endblock %}

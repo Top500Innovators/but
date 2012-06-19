@@ -1,0 +1,11 @@
+Hello,
+
+{{ profile.name }} is recomending you But (the easiest way to build interdisciplinary teams)
+
+Thanks to But you can search for smart and open people, if you would like to try it, use this link:
+{{ current_site }}{% url test key %}
+
+To join go to:
+{{ current_site}}{% url join key %}
+
+Your But team
